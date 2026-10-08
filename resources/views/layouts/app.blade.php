@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
+
 <title>@yield('title', 'Employee Management')</title>
 
 <!-- Bootstrap -->
@@ -647,13 +647,13 @@
 </style>
 
 @stack('styles')
-```
+
 
 </head>
 
 <body>
 
-```
+
 <!-- SIDEBAR -->
 <aside class="sidebar">
 
@@ -809,7 +809,7 @@
 </script>
 
 @stack('scripts')
-```
+
 
 </body>
 </html>
