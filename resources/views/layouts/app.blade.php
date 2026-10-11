@@ -689,6 +689,14 @@
     </a>
 
     <a
+    href="{{ route('users.index') }}"
+    class="nav-link-custom {{ request()->routeIs('users.*') ? 'active' : '' }}"
+>
+    <i class="bi bi-person-vcard"></i>
+    <span>Users</span>
+</a>
+
+    <a
         href="{{ route('employees.create') }}"
         class="nav-link-custom {{ request()->routeIs('employees.create') ? 'active' : '' }}"
     >

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -18,4 +19,8 @@ Route::middleware('auth')->group(function () {
     })->name('home');
 
     Route::resource('employees', EmployeeController::class);
+
+    Route::get('/users', [UserController::class, 'index'])
+    ->name('users.index');
+    
 });
