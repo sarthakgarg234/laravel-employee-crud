@@ -555,95 +555,208 @@
         }
     }
 
-    /* ================= RESPONSIVE ================= */
 
-    @media (max-width: 991px) {
-        .sidebar {
-            width: 80px;
-            padding: 20px 10px;
-        }
+/* ================= RESPONSIVE ================= */
 
-        .brand h4,
-        .brand small,
-        .menu-title,
-        .nav-link-custom span {
-            display: none;
-        }
+.mobile-menu-btn {
+    display: none;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #4f46e5;
+    font-size: 23px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
 
-        .brand {
-            justify-content: center;
-            padding-bottom: 25px;
-        }
+.sidebar-close-btn {
+    display: none;
+}
 
-        .nav-link-custom {
-            justify-content: center;
-        }
+.sidebar-overlay {
+    display: none;
+}
 
-        .main {
-            margin-left: 80px;
-        }
-
-        .topbar {
-            padding: 0 20px;
-        }
-
-        .content {
-            padding: 25px 20px;
-        }
+@media (max-width: 991px) and (min-width: 768px) {
+    .sidebar {
+        width: 80px;
+        padding: 20px 10px;
     }
 
-    @media (max-width: 767px) {
-        .sidebar {
-            display: none;
-        }
-
-        .main {
-            margin-left: 0;
-        }
-
-        .content {
-            padding: 20px 15px;
-        }
-
-        .topbar {
-            min-height: 65px;
-            padding: 10px 15px;
-        }
-
-        .topbar-title {
-            font-size: 16px;
-        }
-
-        .topbar-subtitle {
-            display: none;
-        }
-
-        .profile-user {
-            display: none;
-        }
-
-        .profile-avatar {
-            width: 38px;
-            height: 38px;
-        }
-
-        .logout-btn {
-            padding: 9px 11px;
-        }
-
-        .logout-btn span {
-            display: none;
-        }
-
-        .card-header-custom {
-            align-items: flex-start;
-            flex-direction: column;
-        }
-
-        .search-box {
-            width: 100%;
-        }
+    .brand h4,
+    .brand small,
+    .menu-title,
+    .nav-link-custom span {
+        display: none;
     }
+
+    .brand {
+        justify-content: center;
+        padding-bottom: 25px;
+    }
+
+    .nav-link-custom {
+        justify-content: center;
+    }
+
+    .main {
+        margin-left: 80px;
+    }
+
+    .topbar {
+        padding: 12px 20px;
+    }
+
+    .content {
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .sidebar {
+        display: block;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: min(290px, 85vw);
+        height: 100dvh;
+        overflow-y: auto;
+        padding: 20px 16px;
+        z-index: 1200;
+        transform: translateX(-105%);
+        visibility: hidden;
+        transition: transform 0.3s ease, visibility 0.3s ease;
+        box-shadow: none;
+    }
+
+    .sidebar.is-open {
+        transform: translateX(0);
+        visibility: visible;
+        box-shadow: 15px 0 40px rgba(15, 23, 42, 0.22);
+    }
+
+    .sidebar .brand {
+        justify-content: flex-start;
+        padding: 10px 12px 25px;
+    }
+
+    .sidebar .brand h4,
+    .sidebar .brand small,
+    .sidebar .menu-title,
+    .sidebar .nav-link-custom span {
+        display: initial;
+    }
+
+    .sidebar .brand h4 {
+        font-size: 17px;
+    }
+
+    .sidebar .brand small {
+        display: block;
+    }
+
+    .sidebar .nav-link-custom {
+        justify-content: flex-start;
+    }
+
+    .sidebar-close-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        margin-left: auto;
+        border: 0;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 23px;
+        cursor: pointer;
+    }
+
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1100;
+        background: rgba(15, 23, 42, 0.55);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .sidebar-overlay.is-visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    body.sidebar-open {
+        overflow: hidden;
+    }
+
+    .mobile-menu-btn {
+        display: inline-flex;
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .content {
+        padding: 20px 15px;
+    }
+
+    .topbar {
+        min-height: 65px;
+        padding: 10px 15px;
+        gap: 12px;
+    }
+
+    .topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .topbar-title {
+        font-size: 16px;
+    }
+
+    .topbar-subtitle,
+    .profile-user {
+        display: none;
+    }
+
+    .profile-avatar {
+        width: 38px;
+        height: 38px;
+    }
+
+    .logout-btn {
+        padding: 9px 11px;
+    }
+
+    .logout-btn span {
+        display: none;
+    }
+
+    .card-header-custom {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+}
+
 </style>
 
 @stack('styles')
@@ -655,7 +768,7 @@
 
 
 <!-- SIDEBAR -->
-<aside class="sidebar">
+<aside class="sidebar" id="appSidebar">
 
     <div class="brand">
         <div class="brand-icon">
@@ -666,6 +779,15 @@
             <h4>EmployeeHub</h4>
             <small>Management System</small>
         </div>
+
+        <button
+            type="button"
+            class="sidebar-close-btn"
+            id="sidebarClose"
+            aria-label="Close navigation menu"
+        >
+            <i class="bi bi-x-lg"></i>
+        </button>
     </div>
 
     <div class="menu-title">
@@ -708,6 +830,7 @@
 
 </aside>
 
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <!-- MAIN -->
 <main class="main">
@@ -715,14 +838,29 @@
     <!-- TOPBAR -->
     <header class="topbar">
 
-        <div>
-            <div class="topbar-title">
-                @yield('page-title', 'Employee Dashboard')
+        <div class="topbar-left">
+
+            <button
+                type="button"
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                aria-label="Open navigation menu"
+                aria-controls="appSidebar"
+                aria-expanded="false"
+            >
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div>
+                <div class="topbar-title">
+                    @yield('page-title', 'Employee Dashboard')
+                </div>
+
+                <div class="topbar-subtitle">
+                    Manage your employees efficiently
+                </div>
             </div>
 
-            <div class="topbar-subtitle">
-                Manage your employees efficiently
-            </div>
         </div>
 
         <div class="profile">
@@ -820,6 +958,59 @@
 
 @stack('scripts')
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('appSidebar');
+    const openButton = document.getElementById('mobileMenuBtn');
+    const closeButton = document.getElementById('sidebarClose');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    if (!sidebar || !openButton || !closeButton || !overlay) {
+        return;
+    }
+
+    function openSidebar() {
+        sidebar.classList.add('is-open');
+        overlay.classList.add('is-visible');
+        document.body.classList.add('sidebar-open');
+        openButton.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove('is-open');
+        overlay.classList.remove('is-visible');
+        document.body.classList.remove('sidebar-open');
+        openButton.setAttribute('aria-expanded', 'false');
+    }
+
+    openButton.addEventListener('click', function () {
+        if (sidebar.classList.contains('is-open')) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+    });
+
+    closeButton.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    sidebar.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeSidebar);
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closeSidebar();
+        }
+    });
+
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 767) {
+            closeSidebar();
+        }
+    });
+});
+</script>
 
 </body>
 </html>
