@@ -688,13 +688,15 @@
         <span>Employees</span>
     </a>
 
-    <a
-    href="{{ route('users.index') }}"
-    class="nav-link-custom {{ request()->routeIs('users.*') ? 'active' : '' }}"
->
-    <i class="bi bi-person-vcard"></i>
-    <span>Users</span>
-</a>
+    @if(auth()->user() && auth()->user()->is_admin)
+        <a
+            href="{{ route('users.index') }}"
+            class="nav-link-custom {{ request()->routeIs('users.*') ? 'active' : '' }}"
+        >
+            <i class="bi bi-person-vcard"></i>
+            <span>Users</span>
+        </a>
+    @endif
 
     <a
         href="{{ route('employees.create') }}"

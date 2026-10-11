@@ -10,7 +10,7 @@
         <div>
             <h2 class="fw-bold mb-1">Registered Users</h2>
             <p class="text-secondary mb-0">
-                View all users registered in EmployeeHub.
+                View and manage registered EmployeeHub accounts.
             </p>
         </div>
 
@@ -23,13 +23,32 @@
         </div>
     </div>
 
+    {{-- Success and error messages --}}
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="content-card slide-up">
 
         <div class="card-header-custom">
             <div>
                 <h5 class="section-title">User Directory</h5>
                 <div class="section-subtitle">
-                    Search and view registered accounts
+                    Search and manage registered accounts
                 </div>
             </div>
 
@@ -55,6 +74,9 @@
                         <th>User</th>
                         <th>Email Address</th>
                         <th>Registered On</th>
+                        @if (auth()->user()->is_admin)
+                            <th class="text-center">Actions</th>
+                        @endif
                     </tr>
                 </thead>
 
@@ -72,9 +94,24 @@
                                             ->take(2)
                                             ->implode('') }}
                                     </div>
-                                    <span class="fw-semibold">
-                                        {{ $user->name }}
-                                    </span>
+
+                                    <div>
+                                        <span class="fw-semibold">
+                                            {{ $user->name }}
+                                        </span>
+
+                                        @if ($user->is_admin)
+                                            <span class="badge bg-primary ms-1">
+                                                Admin
+                                            </span>
+                                        @endif
+
+                                        @if (auth()->id() === $user->id)
+                                            <span class="badge bg-secondary ms-1">
+                                                You
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </td>
 
@@ -83,14 +120,43 @@
                             <td>
                                 {{ $user->created_at?->format('d M Y, h:i A') ?? 'N/A' }}
                             </td>
+
+                            @if (auth()->user()->is_admin)
+                                <td class="text-center">
+                                    @if (auth()->id() !== $user->id)
+                                        <form
+                                            action="{{ route('users.destroy', $user) }}"
+                                            method="POST"
+                                            class="d-inline"
+                                            onsubmit="return confirm('Are you sure you want to delete {{ addslashes($user->name) }}? This action cannot be undone.');"
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit"
+                                                    class="btn btn-outline-danger btn-sm"
+                                                    title="Delete user">
+                                                <i class="bi bi-trash3 me-1"></i>
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class="text-secondary small">
+                                            Current account
+                                        </span>
+                                    @endif
+                                </td>
+                            @endif
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center py-5">
+                            <td colspan="{{ auth()->user()->is_admin ? 5 : 4 }}"
+                                class="text-center py-5">
                                 <i class="bi bi-people fs-2 text-secondary"></i>
                                 <p class="mt-2 mb-0">
                                     No users found.
                                 </p>
+
                                 @if ($search)
                                     <a href="{{ route('users.index') }}"
                                        class="btn btn-outline-secondary btn-sm mt-3">
